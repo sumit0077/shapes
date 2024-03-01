@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Change Shape and Color</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background: linear-gradient(to right, black, grey);
+  }
+  #shape {
+    width: 200px;
+    height: 200px;
+    background-color: dodgerblue;
+    margin: 20px auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    color: white;
+    border-radius: 50%;
+  }
+  button {
+    margin: 10px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  .rectangle {
+    width: 300px;
+    height: 200px;
+    border-radius: 10px;
+  }
+  .diamond {
+    width: 200px;
+    height: 200px;
+    transform: rotate(45deg);
+  }
+</style>
+</head>
+<body>
+<div id="shape">Circle</div> 
+<button id="changeColorBtn">Change Color</button>
+<button id="changeShapeBtn">Change Shape</button>
+
+<script>
+  const colors = ['dodgerblue', 'tomato', 'green', 'purple', 'orange', 'cyan', 'yellow', 'pink', 'teal', 'magenta'];
+  const shapes = ['triangle', 'square', 'circle', 'rectangle', 'diamond'];
+  
+  const shapeElement = document.getElementById('shape');
+  const changeColorBtn = document.getElementById('changeColorBtn');
+  const changeShapeBtn = document.getElementById('changeShapeBtn');
+  let previousShape = 'circle'; 
+
+  changeColorBtn.addEventListener('click', () => {
+    const randomColor = colors[Math.floor(Math.random() * colors.length)];
+    shapeElement.style.backgroundColor = randomColor;
+  });
+
+  changeShapeBtn.addEventListener('click', () => {
+    let randomShape;
+    do {
+      randomShape = shapes[Math.floor(Math.random() * shapes.length)];
+    } while (randomShape === previousShape); 
+
+    previousShape = randomShape; 
+
+    shapeElement.classList.remove('rectangle', 'diamond');
+
+   
+    switch (randomShape) {
+      case 'rectangle':
+        shapeElement.classList.add('rectangle');
+        shapeElement.style.borderRadius = '10px';
+        shapeElement.textContent = 'Rectangle';
+        break;
+      case 'diamond':
+        shapeElement.classList.add('diamond');
+        shapeElement.style.borderRadius = '0';
+        shapeElement.textContent = 'Diamond';
+        break;
+      case 'circle':
+        shapeElement.textContent = 'Circle';
+        shapeElement.style.borderRadius = '50%';
+        break;
+      default:
+        shapeElement.textContent = randomShape.charAt(0).toUpperCase() + randomShape.slice(1);
+        shapeElement.style.borderRadius = '50%'; 
+    }
+  });
+</script>
+</body>
+</html>
